@@ -23,6 +23,22 @@ namespace Capitulo02.Data
             {
                 context.Departamentos.Add(d);
             }
+
+            if (context.Instituicoes.Any())
+            {
+                return;
+            }
+
+            var instituicoes = new Instituicao[]
+            {
+                new Instituicao {Nome="Instituto de Informatica", Endereco="Ivoti"},
+                new Instituicao {Nome="Instituto Agricola", Endereco="Presidente Lucena"}
+            };
+
+            foreach (Instituicao i in instituicoes)
+            {
+                context.Instituicoes.Add(i);
+            }
             context.SaveChanges();
         }
     }
