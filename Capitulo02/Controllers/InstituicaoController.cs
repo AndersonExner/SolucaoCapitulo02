@@ -140,6 +140,7 @@ namespace Capitulo02.Controllers
             var inst = await _context.Instituicoes.SingleOrDefaultAsync(i => i.InstituicaoID == id);
             _context.Instituicoes.Remove(inst);
             await _context.SaveChangesAsync();
+            TempData["Message"] = "Instituição " + inst.Nome.ToUpper() + " foi removida.";
             return RedirectToAction(nameof(Index));
         }
         
