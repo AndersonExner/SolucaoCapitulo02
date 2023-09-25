@@ -1,14 +1,11 @@
 ﻿@model Capitulo02.Models.Instituicao
-
 @{
-    ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_LayoutIES.cshtml";
+    Layout = "_LayoutIES";
 }
 
 @section Styles {
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
-        <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/font-awesome.min.css"
@@ -16,37 +13,52 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
     </environment>
 }
+
 <div class="card-block">
-    <div class="card-header text-white bg-secondary text-center h1">Exibindo um deo existente</div>
+    <div class="card-header text-white bg-secondary text-center h1">Exibindo uma instituição existente</div>
     <div class="card-body">
-        <div class="form-group">
-            <label asp-for="Nome" class="control-label"></label>
-            <br />
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                    </span>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group">
+                    <label asp-for="InstituicaoID" class="control-label"></label>
+                    <br />
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-key" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <input asp-for="InstituicaoID" class="form-control" disabled="disabled" />
+                    </div>
+                    <label asp-for="Nome" class="control-label"></label>
+                    <br />
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <input asp-for="Nome" class="form-control" disabled="disabled" />
+                    </div>
+                    <label asp-for="Endereco" class="control-label"></label>
+                    <br />
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-map-marker-alt" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <input asp-for="Endereco" class="form-control" disabled="disabled" />
+                    </div>
                 </div>
-                <input asp-for="Nome" class="form-control" disabled="disabled" />
             </div>
-            <label asp-for="Endereco" class="control-label"></label>
-            <br />
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="fa fa-map-marker-alt"></i>
-                    </span>
-                </div>
-                <input asp-for="Endereco" class="form-control" disabled="disabled" />
+            <div class="col-4">
+                @{await Html.RenderPartialAsync("~/Views/Instituicao/_ComDepartamentos.cshtml", Model.Departamentos.ToList()); }
             </div>
         </div>
     </div>
     <div class="card-footer bg-info text-center text-white">
-        <form asp-action="Delete">
-            <input type="hidden" asp-for="InstituicaoID" />
-            <input type="submit" value="Remover Instituição" class="btn btn-light" />
-            <a asp-action="Index" class="btn btn-info">Retornar a listagem</a>
-        </form>
+        <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.InstituicaoID">Alterar</a> |
+        <a asp-action="Index" class="btn btn-warning">Retornar à listagem de instituições</a>
     </div>
 </div>

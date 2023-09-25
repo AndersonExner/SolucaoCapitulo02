@@ -1,7 +1,9 @@
 ﻿using Capitulo02.Data;
 using Capitulo02.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace Capitulo02.Controllers
 {
@@ -11,7 +13,7 @@ namespace Capitulo02.Controllers
 
         public InstituicaoController(IESContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         public async Task<IActionResult> Index()
@@ -107,13 +109,13 @@ namespace Capitulo02.Controllers
                 return NotFound();
             }
 
-            var inst = await _context.Instituicoes.SingleOrDefaultAsync(i => i.InstituicaoID == id);
-            if (inst == null)
+            var instituicao = await _context.Instituicoes.Include(d => d.Departamentos).SingleOrDefaultAsync(m => m.InstituicaoID == id);
+            if (instituicao == null)
             {
                 return NotFound();
             }
 
-            return View(inst);
+            return View();
         }
 
         //DELETE
