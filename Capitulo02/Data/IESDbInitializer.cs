@@ -1,4 +1,4 @@
-﻿using Capitulo02.Models;
+﻿using Modelo.Cadastros;
 
 namespace Capitulo02.Data
 {

@@ -1,4 +1,4 @@
-﻿namespace Capitulo02.Models
+﻿namespace Modelo.Cadastros
 {
     public class Departamento
     {
