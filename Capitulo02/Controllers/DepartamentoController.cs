@@ -77,8 +77,8 @@ namespace Capitulo02.Controllers
         public async Task<IActionResult> Edit(long? id)
         {
             ViewResult visaoDepartamento = (ViewResult)await ObterVisaoDepartamentoPorID(id);
-            Departamento departamento = (Departamento)visaoDepartamento.Model;
-            ViewBag.Instituicoes = new SelectList(instituicaoDAL.ObterInstituicoesClassificadosPorNome(), "InstituicaoID", "Nome", departamento.InstituicaoID);
+            Departamento departamento = (Departamento) visaoDepartamento.Model;
+            ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(i => i.Nome), "InstituicaoID", "Nome", departamento.InstituicaoID);
             return visaoDepartamento;
         }
         [HttpPost]
@@ -132,7 +132,6 @@ namespace Capitulo02.Controllers
             var departamento = await departamentoDal.EliminarDepartamentoPorId((long) id);
             _context.Departamentos.Remove(departamento);
             TempData["Message"] = "Departamento " + departamento.Nome.ToUpper() + " foi removido";
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }
