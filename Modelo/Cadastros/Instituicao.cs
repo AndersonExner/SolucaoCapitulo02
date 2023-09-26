@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Capitulo02.Models
+namespace Modelo.Cadastros
 {
     public class Instituicao
     {
