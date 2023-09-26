@@ -130,7 +130,6 @@ namespace Capitulo02.Controllers
         public async Task<IActionResult> DeleteConfirmed(long? id)
         {
             var departamento = await departamentoDal.EliminarDepartamentoPorId((long) id);
-            _context.Departamentos.Remove(departamento);
             TempData["Message"] = "Departamento " + departamento.Nome.ToUpper() + " foi removido";
             return RedirectToAction(nameof(Index));
         }
