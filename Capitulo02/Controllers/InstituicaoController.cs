@@ -115,7 +115,7 @@ namespace Capitulo02.Controllers
                 return NotFound();
             }
 
-            return View();
+            return View(instituicao);
         }
 
         //DELETE
