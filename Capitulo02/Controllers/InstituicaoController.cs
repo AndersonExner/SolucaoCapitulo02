@@ -119,7 +119,7 @@ namespace Capitulo02.Controllers
             return await ObterVisaoInstituicaoPorId(id);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpDelete, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long? id)
         {
