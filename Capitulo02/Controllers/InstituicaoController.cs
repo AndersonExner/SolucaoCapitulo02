@@ -124,7 +124,6 @@ namespace Capitulo02.Controllers
         public async Task<IActionResult> DeleteConfirmed(long? id)
         {
             var inst = await instituicaoDAL.EliminarInstituicaoPorId((long) id);
-            await _context.SaveChangesAsync();
             TempData["Message"] = "Instituição " + inst.Nome.ToUpper() + " foi removida.";
             return RedirectToAction(nameof(Index));
         }

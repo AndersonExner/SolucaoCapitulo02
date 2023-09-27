@@ -19,6 +19,7 @@ namespace Capitulo02.Controllers
         public DepartamentoController(IESContext context)
         {
             this._context = context;
+            instituicaoDAL = new InstituicaoDAL(context);
             departamentoDal = new DepartamentoDAL(context);
         }
 
