@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Capitulo02.Data.DAL.Cadastros;
 
-namespace Capitulo02.Controllers
+namespace Capitulo02.Areas.Cadastros.Controllers
 {
+    [Area("Cadastros")]
     public class DepartamentoController : Controller
     {
         private readonly IESContext _context;
@@ -18,20 +19,20 @@ namespace Capitulo02.Controllers
 
         public DepartamentoController(IESContext context)
         {
-            this._context = context;
+            _context = context;
             instituicaoDAL = new InstituicaoDAL(context);
             departamentoDal = new DepartamentoDAL(context);
         }
 
         public async Task<IActionResult> ObterVisaoDepartamentoPorID(long? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var departamento = await departamentoDal.ObterDepartamentoPorId((long)id);
-            if(departamento == null)
+            if (departamento == null)
             {
                 return NotFound();
             }
@@ -78,7 +79,7 @@ namespace Capitulo02.Controllers
         public async Task<IActionResult> Edit(long? id)
         {
             ViewResult visaoDepartamento = (ViewResult)await ObterVisaoDepartamentoPorID(id);
-            Departamento departamento = (Departamento) visaoDepartamento.Model;
+            Departamento departamento = (Departamento)visaoDepartamento.Model;
             ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(i => i.Nome), "InstituicaoID", "Nome", departamento.InstituicaoID);
             return visaoDepartamento;
         }
@@ -130,7 +131,7 @@ namespace Capitulo02.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long? id)
         {
-            var departamento = await departamentoDal.EliminarDepartamentoPorId((long) id);
+            var departamento = await departamentoDal.EliminarDepartamentoPorId((long)id);
             TempData["Message"] = "Departamento " + departamento.Nome.ToUpper() + " foi removido";
             return RedirectToAction(nameof(Index));
         }

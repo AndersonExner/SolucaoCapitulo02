@@ -1,11 +1,15 @@
-﻿@model Modelo.Cadastros.Instituicao
+﻿@model Modelo.Discente.Academico
+
+
 @{
-    Layout = "_LayoutIES";
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutIES.cshtml";
 }
 
 @section Styles {
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/font-awesome.min.css"
@@ -15,14 +19,14 @@
 }
 
 <div class="card-block">
-    <div class="card-header text-white bg-secondary text-center h1">Exibindo uma instituição existente</div>
+    <div class="card-header text-white bg-secondary text-center h1">Detalhes Acadêmico</div>
 
     @{
-        await Html.RenderPartialAsync("~/Views/Instituicao/_PartialDetailsContentCard.cshtml", Model);
+        await Html.RenderPartialAsync("~/Areas/Discente/Views/Academico/_PartialDetailsContentCard.cshtml", Model);
     }
 
     <div class="card-footer bg-info text-center text-white">
-        <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.InstituicaoID">Alterar</a> |
+        <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.AcademicoID">Alterar</a> |
         <a asp-action="Index" class="btn btn-warning">Retornar à listagem de instituições</a>
     </div>
 </div>
