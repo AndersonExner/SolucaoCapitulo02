@@ -19,6 +19,7 @@ namespace Capitulo02.Controllers
         public DepartamentoController(IESContext context)
         {
             this._context = context;
+            instituicaoDAL = new InstituicaoDAL(context);
             departamentoDal = new DepartamentoDAL(context);
         }
 
@@ -48,7 +49,7 @@ namespace Capitulo02.Controllers
 
         public IActionResult Create()
         {
-            var instituicoes = _context.Instituicoes.OrderBy(i => i.Nome).ToList();
+            var instituicoes = instituicaoDAL.ObterInstituicoesClassificadosPorNome().ToList();
             instituicoes.Insert(0, new Instituicao() { InstituicaoID = 0, Nome = "Selecione a instituição" });
             ViewBag.Instituicoes = instituicoes;
             return View();

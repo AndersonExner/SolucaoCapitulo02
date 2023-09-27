@@ -119,12 +119,11 @@ namespace Capitulo02.Controllers
             return await ObterVisaoInstituicaoPorId(id);
         }
 
-        [HttpDelete, ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long? id)
         {
             var inst = await instituicaoDAL.EliminarInstituicaoPorId((long) id);
-            await _context.SaveChangesAsync();
             TempData["Message"] = "Instituição " + inst.Nome.ToUpper() + " foi removida.";
             return RedirectToAction(nameof(Index));
         }
