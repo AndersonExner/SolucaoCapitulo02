@@ -4,19 +4,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Modelo.Discente;
 
-namespace Capitulo02.Controllers
+namespace Capitulo02.Areas.Discente.Controllers
 {
+    [Area("Discente")]
     public class AcademicoController : Controller
     {
         private readonly IESContext _context;
         private readonly AcademicoDAL academicoDAL;
-        
+
         public AcademicoController(IESContext context)
         {
             _context = context;
             academicoDAL = new AcademicoDAL(context);
         }
-        
+
         public async Task<IActionResult> Index()
         {
             return View(await academicoDAL.ObterAcademicosClassificadosPorNome().ToListAsync());
@@ -40,15 +41,15 @@ namespace Capitulo02.Controllers
 
         private bool AcademicoExists(long? id)
         {
-            return  _context.Academicos.Any(i => i.AcademicoID == id);
+            return _context.Academicos.Any(i => i.AcademicoID == id);
         }
 
-        public async Task<IActionResult> Details (long? id)
+        public async Task<IActionResult> Details(long? id)
         {
             return await ObterVisaoAcademicoPorId(id);
         }
 
-        public async Task<IActionResult> Edit (long? id)
+        public async Task<IActionResult> Edit(long? id)
         {
             return await ObterVisaoAcademicoPorId(id);
         }
@@ -74,7 +75,7 @@ namespace Capitulo02.Controllers
                 {
                     await academicoDAL.GravarAcademico(academico);
 
-                    return RedirectToAction(nameof(Index));                       
+                    return RedirectToAction(nameof(Index));
                 }
             }
             catch (DbUpdateException)
@@ -89,7 +90,7 @@ namespace Capitulo02.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long? id, [Bind("AcademicoID, Nome, RegistroAcademico, Nascimento")] Academico academico)
         {
-            if(id != academico.AcademicoID)
+            if (id != academico.AcademicoID)
             {
                 return NotFound();
             }
@@ -102,7 +103,7 @@ namespace Capitulo02.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if(!AcademicoExists(academico.AcademicoID))
+                    if (!AcademicoExists(academico.AcademicoID))
                     {
                         return NotFound();
                     }

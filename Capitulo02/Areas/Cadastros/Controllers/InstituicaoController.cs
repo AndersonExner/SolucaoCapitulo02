@@ -6,8 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using Capitulo02.Data.DAL.Cadastros;
 
-namespace Capitulo02.Controllers
+namespace Capitulo02.Areas.Cadastros.Controllers
 {
+    [Area("Cadastros")]
     public class InstituicaoController : Controller
     {
         private readonly IESContext _context;
@@ -15,7 +16,7 @@ namespace Capitulo02.Controllers
 
         public InstituicaoController(IESContext context)
         {
-            this._context = context;
+            _context = context;
             instituicaoDAL = new InstituicaoDAL(context);
         }
 
@@ -78,7 +79,7 @@ namespace Capitulo02.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("InstituicaoID","Nome", "Endereco")] Instituicao instituicao)
+        public async Task<IActionResult> Edit(long? id, [Bind("InstituicaoID", "Nome", "Endereco")] Instituicao instituicao)
         {
             if (id != instituicao.InstituicaoID)
             {
@@ -93,7 +94,7 @@ namespace Capitulo02.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (! await InstituicaoExists(instituicao.InstituicaoID))
+                    if (!await InstituicaoExists(instituicao.InstituicaoID))
                     {
                         return NotFound();
                     }
@@ -123,10 +124,10 @@ namespace Capitulo02.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long? id)
         {
-            var inst = await instituicaoDAL.EliminarInstituicaoPorId((long) id);
+            var inst = await instituicaoDAL.EliminarInstituicaoPorId((long)id);
             TempData["Message"] = "Instituição " + inst.Nome.ToUpper() + " foi removida.";
             return RedirectToAction(nameof(Index));
         }
-        
+
     }
 }
