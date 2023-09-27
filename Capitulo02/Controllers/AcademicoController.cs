@@ -85,7 +85,7 @@ namespace Capitulo02.Controllers
         }
 
         //Academico = EDIT
-        [HttpPut]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long? id, [Bind("AcademicoID, Nome, RegistroAcademico, Nascimento")] Academico academico)
         {
@@ -117,7 +117,7 @@ namespace Capitulo02.Controllers
         }
 
         //Academico = DELETE
-        [HttpDelete, ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long? id)
         {
