@@ -1,6 +1,9 @@
 ﻿using Capitulo02.Data;
+using Capitulo02.Models.Infra;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +23,20 @@ namespace Capitulo02
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IESContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IESConnection")));
+            services.AddDbContext<IESContext>(options => 
+            options.UseSqlServer(Configuration.GetConnectionString("IESConnection")));
+
+            services.AddIdentity<UsuarioDaAplicacao, IdentityRole>()
+                .AddEntityFrameworkStores<IESContext>()
+                .AddDefaultTokenProviders();
+            
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Infra/Acessar";
+                options.AccessDeniedPath = "/Infra/AcessoNegado";
+            });
+
+
             services.AddControllersWithViews();
         }
 
@@ -38,7 +54,7 @@ namespace Capitulo02
                 app.UseHsts();
             }
 
-
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
