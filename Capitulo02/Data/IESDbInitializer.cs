@@ -21,12 +21,12 @@ namespace Capitulo02.Data
                 new Instituicao { Nome = "UniTeste", Endereco = "Roraima" }
             };
 
-            foreach(Instituicao i in instituicoes)
+            foreach (Instituicao i in instituicoes)
             {
                 context.Instituicoes.Add(i);
             }
             context.SaveChanges();
-            
+
             var departamentos = new Departamento[]
             {
                 new Departamento { Nome="Ciência da Computação", InstituicaoID = 1 },

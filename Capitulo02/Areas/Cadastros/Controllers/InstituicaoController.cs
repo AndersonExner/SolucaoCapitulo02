@@ -1,11 +1,9 @@
 ﻿using Capitulo02.Data;
-using Modelo.Cadastros;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 using Capitulo02.Data.DAL.Cadastros;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Modelo.Cadastros;
 
 namespace Capitulo02.Areas.Cadastros.Controllers
 {

@@ -5,7 +5,7 @@ namespace Capitulo02.Data.DAL.Discente
     public class AcademicoDAL
     {
         private IESContext _context;
-        
+
         public AcademicoDAL(IESContext context)
         {
             _context = context;
@@ -16,10 +16,10 @@ namespace Capitulo02.Data.DAL.Discente
             return _context.Academicos.OrderBy(i => i.Nome);
         }
 
-        public async Task <Academico> ObterAcademicoPorId(long id)
+        public async Task<Academico> ObterAcademicoPorId(long id)
         {
             return await _context.Academicos.FindAsync(id);
-        } 
+        }
 
         public async Task<Academico> GravarAcademico(Academico academico)
         {
