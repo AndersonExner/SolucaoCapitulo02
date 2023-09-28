@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modelo.Cadastros;
-using System.Linq;
 
 namespace Capitulo02.Data.DAL.Cadastros
 {
@@ -26,7 +25,7 @@ namespace Capitulo02.Data.DAL.Cadastros
 
         public async Task<Instituicao> GravarInstituicao(Instituicao instituicao)
         {
-            if(instituicao.InstituicaoID == null)
+            if (instituicao.InstituicaoID == null)
             {
                 _context.Instituicoes.Add(instituicao);
             }

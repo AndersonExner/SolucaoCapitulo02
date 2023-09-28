@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-
-namespace Modelo.Cadastros
+﻿namespace Modelo.Cadastros
 {
     public class Instituicao
     {

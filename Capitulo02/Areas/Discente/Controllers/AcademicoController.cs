@@ -1,8 +1,11 @@
 ﻿using Capitulo02.Data;
 using Capitulo02.Data.DAL.Discente;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Modelo.Discente;
+
 
 namespace Capitulo02.Areas.Discente.Controllers
 {
@@ -11,11 +14,13 @@ namespace Capitulo02.Areas.Discente.Controllers
     {
         private readonly IESContext _context;
         private readonly AcademicoDAL academicoDAL;
+        private IWebHostEnvironment _env;
 
-        public AcademicoController(IESContext context)
+        public AcademicoController(IESContext context, IWebHostEnvironment env)
         {
             _context = context;
             academicoDAL = new AcademicoDAL(context);
+            _env = env;
         }
 
         public async Task<IActionResult> Index()
@@ -59,6 +64,33 @@ namespace Capitulo02.Areas.Discente.Controllers
             return await ObterVisaoAcademicoPorId(id);
         }
 
+        //Obter foto academico
+        public async Task<FileContentResult> GetFoto(long id)
+        {
+            Academico academico = await academicoDAL.ObterAcademicoPorId(id);
+
+            if(academico != null)
+            {
+                return File(academico.Foto, academico.FotoMimeType);
+            }
+            return null;
+        }
+
+        //Download foto
+        public async Task<FileResult> DownloadFoto(long id)
+        {
+            Academico academico = await academicoDAL.ObterAcademicoPorId(id);
+            string nomeArquivo = "Foto" + academico.AcademicoID.ToString().Trim() + ".jpg";
+            FileStream fileStream = new FileStream(System.IO.Path.Combine(_env.WebRootPath, nomeArquivo), FileMode.Create, FileAccess.Write);
+            fileStream.Write(academico.Foto, 0, academico.Foto.Length);
+            fileStream.Close();
+
+            IFileProvider provider = new PhysicalFileProvider(_env.WebRootPath);
+            IFileInfo fileInfo = provider.GetFileInfo(nomeArquivo);
+            var readStream = fileInfo.CreateReadStream();
+            return File(readStream, academico.FotoMimeType, nomeArquivo);
+        }
+
         //Academico = Create
         public IActionResult Create()
         {
@@ -67,12 +99,17 @@ namespace Capitulo02.Areas.Discente.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome, RegistroAcademico, Nascimento")] Academico academico)
+        public async Task<IActionResult> Create([Bind("Nome, RegistroAcademico, Nascimento")] Academico academico, IFormFile foto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    var stream = new MemoryStream();
+                    await foto.CopyToAsync(stream);
+                    academico.Foto = stream.ToArray();
+                    academico.FotoMimeType = foto.ContentType;
+
                     await academicoDAL.GravarAcademico(academico);
 
                     return RedirectToAction(nameof(Index));
@@ -88,7 +125,7 @@ namespace Capitulo02.Areas.Discente.Controllers
         //Academico = EDIT
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("AcademicoID, Nome, RegistroAcademico, Nascimento")] Academico academico)
+        public async Task<IActionResult> Edit(long? id, [Bind("AcademicoID,Nome,RegistroAcademico,Nascimento")] Academico academico, IFormFile? foto, string chkRemoverFoto)
         {
             if (id != academico.AcademicoID)
             {
@@ -99,6 +136,18 @@ namespace Capitulo02.Areas.Discente.Controllers
             {
                 try
                 {
+                    var stream = new MemoryStream();
+                    if (chkRemoverFoto != null)
+                    {
+                        academico.Foto = null;
+                    }
+                    else
+                    {
+                        await foto.CopyToAsync(stream);
+                        academico.Foto = stream.ToArray();
+                        academico.FotoMimeType = foto.ContentType;
+                    }
+
                     await academicoDAL.GravarAcademico(academico);
                 }
                 catch (DbUpdateConcurrencyException)

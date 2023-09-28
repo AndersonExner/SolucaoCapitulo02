@@ -26,7 +26,7 @@ namespace Capitulo02.Data.DAL.Cadastros
 
         public async Task<Departamento> GravarDepartamento(Departamento departamento)
         {
-            if(departamento.DepartamentoID == null)
+            if (departamento.DepartamentoID == null)
             {
                 _context.Departamentos.Add(departamento);
             }
