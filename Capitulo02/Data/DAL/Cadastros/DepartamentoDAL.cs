@@ -17,6 +17,11 @@ namespace Capitulo02.Data.DAL.Cadastros
             return _context.Departamentos.Include(i => i.Instituicao).OrderBy(y => y.Nome);
         }
 
+        public IQueryable<Departamento> ObterDepartamentos()
+        {
+            return _context.Departamentos.OrderBy(i => i.Nome);
+        }
+
         public async Task<Departamento> ObterDepartamentoPorId(long id)
         {
             var departamento = await _context.Departamentos.SingleOrDefaultAsync(i => i.DepartamentoID == id);
