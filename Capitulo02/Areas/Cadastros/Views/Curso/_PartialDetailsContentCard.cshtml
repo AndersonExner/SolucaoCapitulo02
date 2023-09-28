@@ -1,8 +1,8 @@
-﻿@model Modelo.Discente.Academico
+﻿@model Modelo.Cadastros.Curso
 
 <div class="card body">
     <div class="form group">
-        <label asp-for="AcademicoID" class="control-label"></label>
+        <label asp-for="CursoID" class="control-label"></label>
         <br />
         <div class="input-group">
             <div class="input-group-prepend">
@@ -10,9 +10,9 @@
                     <i class="fa fa-key" aria-hidden="true"></i>
                 </span>
             </div>
-            <input asp-for="AcademicoID" class="form-control" disabled="disabled" />
+            <input asp-for="CursoID" class="form-control" disabled="disabled" />
         </div>
-        <label asp-for="Nome" class="control-label">Nome do Aluno</label>
+        <label asp-for="Nome" class="control-label">Nome do Curso</label>
         <br />
         <div class="input-group">
             <div class="input-group-prepend">
@@ -22,7 +22,7 @@
             </div>
             <input asp-for="Nome" class="form-control" disabled="disabled" />
         </div>
-        <label asp-for="RegistroAcademico" class="control-label">Registro Acadêmico</label>
+        <label asp-for="Departamento.Nome" class="control-label">Nome Departamento</label>
         <br />
         <div class="input-group">
             <div class="input-group-prepend">
@@ -30,17 +30,7 @@
                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                 </span>
             </div>
-            <input asp-for="RegistroAcademico" class="form-control" disabled="disabled" />
-        </div>
-        <label asp-for="Nascimento" class="control-label">Data de Nascimento</label>
-        <br />
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text">
-                    <i class="fa fa-user-circle" aria-hidden="true"></i>
-                </span>
-            </div>
-            <input asp-for="Nascimento" class="form-control" disabled="disabled" />
+            <input asp-for="Departamento.Nome" class="form-control" disabled="disabled" />
         </div>
     </div>
 </div>
