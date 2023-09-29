@@ -1,5 +1,6 @@
 ﻿using Capitulo02.Data;
 using Capitulo02.Data.DAL.Cadastros;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Modelo.Cadastros;
 namespace Capitulo02.Areas.Cadastros.Controllers
 {
     [Area("Cadastros")]
+    [Authorize]
     public class CursoController : Controller
     {
         private readonly IESContext _context;

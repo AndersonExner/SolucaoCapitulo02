@@ -8,7 +8,7 @@ using Modelo.Cadastros;
 namespace Capitulo02.Areas.Cadastros.Controllers
 {
     [Area("Cadastros")]
-    //[Authorize]
+    [Authorize]
     public class InstituicaoController : Controller
     {
         private readonly IESContext _context;

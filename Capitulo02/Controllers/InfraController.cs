@@ -46,7 +46,7 @@ namespace Capitulo02.Controllers
                 {
                     _logger.LogInformation("Usuário Autenticado.");
                     ViewData["ReturnUrl"] = returnUrl;
-                    return View();
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
             }
             ModelState.AddModelError(string.Empty, "Faha na tentativa de login.");
@@ -79,7 +79,7 @@ namespace Capitulo02.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("Usuário acesso com a conta criada.");
-                    return RedirectToAction(returnUrl);
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
                 AddErrors(result);
             }

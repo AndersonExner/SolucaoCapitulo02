@@ -1,5 +1,6 @@
 ﻿using Capitulo02.Data;
 using Capitulo02.Data.DAL.Discente;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Modelo.Discente;
 namespace Capitulo02.Areas.Discente.Controllers
 {
     [Area("Discente")]
+    [Authorize]
     public class AcademicoController : Controller
     {
         private readonly IESContext _context;
