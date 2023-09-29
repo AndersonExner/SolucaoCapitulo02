@@ -27,10 +27,12 @@
         <table id="tabela_professores">
             <thead>
                 <tr>
-                    <th>
+                    <th class="text-center">
                         @Html.DisplayNameFor(model => model.Nome)
                     </th>
-                    <th></th>
+                    <th class="text-center">
+                        Ações
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -51,7 +53,8 @@
         </table>
     </div>
     <div class="card-footer bg-success text-center">
-        <a asp-action="Create" class="btn-success">Criar um novo Professor</a>
+        <a asp-action="Create" class="btn btn-dark">Criar um novo Professor</a>
+        <a asp-action="AdicionarProfessor" class="btn btn-danger">Adicionar Professor a um Curso</a>
     </div>
 </div>
 

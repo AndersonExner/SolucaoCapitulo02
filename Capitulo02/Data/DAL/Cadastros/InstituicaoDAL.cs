@@ -44,5 +44,10 @@ namespace Capitulo02.Data.DAL.Cadastros
             await _context.SaveChangesAsync();
             return instituicao;
         }
+
+        internal object ObterInstituicoesClassificadasPorNome()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
