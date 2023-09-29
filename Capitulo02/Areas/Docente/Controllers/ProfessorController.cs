@@ -12,10 +12,12 @@ using Capitulo02.Areas.Docente.Models;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Capitulo02.Areas.Docente.Controllers
 {
     [Area("Docente")]
+    [Authorize]
     public class ProfessorController : Controller
     {
         private readonly IESContext _context;
