@@ -34,30 +34,9 @@
             <div class="col-12">&nbsp;</div>
             <div class="col-12">&nbsp;</div>
         </div>
-
-        <div class="row" style="text-align:right;">
-            <div class="col-6"></div>
-            <div class="col-6">
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    <div>Olá @UserManager.GetUserName(User), seja bem-vindo(a) / @Html.ActionLink("Logout", "Sair", "Infra", new { area = "" })</div>
-               }
-                else
-                {
-                    <a class="nav-item nav-link" asp-area="" asp-controller="Infra" asp-action="Acessar">
-                        Informar usuário/senha para acessar
-                    </a>
-                }
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">&nbsp;</div>
-        </div>
-
-            <div class="row">
-                <div class="col-2">
-                    <nav class="nav flex-column">
+        <div class="container-fluid row">
+            <div class="col-10">
+                    <nav class="nav flex-row justify-content-center">
                         <a class="nav-item nav-link" asp-area="Cadastros" asp-controller="Instituicao" asp-action="Index">
                             <img src="~/images/university.png" width="30" height="30" alt="">
                             Instituições
@@ -79,22 +58,36 @@
                             Professores
                          </a>
                         <a class="nav-item nav-link" asp-area="Docente" asp-controller="CursoProfessor" asp-action="Index">
-                            <img src="~/images/professor.png" width="30" height="30" alt="">
+                            <img src="~/images/file.png" width="30" height="30" alt="">
                         Professores/Cursos
                         </a>
                     </nav>
                 </div>
-                <div class="col-10">
+            <div class="col-2">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <div>Olá @UserManager.GetUserName(User) / @Html.ActionLink("Logout", "Sair", "Infra", new { area = "" })</div>
+                }
+                else
+                {
+                    <a class="nav-item nav-link" asp-area="" asp-controller="Infra" asp-action="Acessar">
+                        Informar usuário/senha para acessar
+                    </a>
+                }
+            </div>
+        </div>
+
+                <div class="col-12">
                     <div class="row">
                         <div class="col-12">
                             @RenderBody()
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            
+    </div>
 
-    <nav class="navbar" style="background-color: #e3f2fd;">
+    <nav class="navbar fixed-bottom" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="#">Everton Coimbra de Araújo</a>
     </nav>
 
