@@ -18,6 +18,8 @@ namespace Capitulo02.Data
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Disciplina> Disciplinas { get; set; }
         public DbSet<Academico> Academicos { get; set; }
+        public DbSet<CursoProfessor> CursoProfessor { get; set; } 
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
